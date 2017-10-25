@@ -1,8 +1,19 @@
-# Dependency directory
+# Node
 node_modules
+*.log
+.env
+lib/
+es/
+dist/
+npm-debug.log
+_book/
 
 # Source maps
 *.js.map
 
 # Files marked with gitigx
 *gitigx*
+
+# Mac
+.DS_Store
+.*/

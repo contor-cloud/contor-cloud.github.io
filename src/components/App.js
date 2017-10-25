@@ -1,45 +1,55 @@
-import React from 'react';
-import Interactive from 'react-interactive';
-import { Switch, Route } from 'react-router-dom';
-import Home from './Home';
-import ExampleComponent from './ExampleComponent';
-import PageNotFound from './PageNotFound';
-import Breadcrumbs from './Breadcrumbs';
-import s from '../styles/app.style';
+import React, { Component } from 'react'
+import { Container, Content } from './Layout'
+import Nav from './PrimaryNav'
 
-export default function App() {
-  return (
-    <div style={s.root}>
-      <h1 style={s.title}>Single Page Apps for GitHub Pages</h1>
-      <Interactive
-        as="a"
-        href="https://github.com/rafrex/spa-github-pages"
-        style={s.repoLink}
-        {...s.link}
-      >https://github.com/rafrex/spa-github-pages</Interactive>
+class App extends Component {
+  state = {
+    isSideFolded: true,
+    isMobileNavFolded: true
+  }
 
-      <nav style={s.breadcrumbs}>
-        <Breadcrumbs />
-      </nav>
+  static defaultProps = {
+    title: '',
+    description: '',
+  }
 
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/example" component={ExampleComponent} />
-        <Route component={PageNotFound} />
-      </Switch>
+  onSideToggle = () => {
+    this.setState({
+      isSideFolded: !this.state.isSideFolded,
+      isMobileNavFolded: true,
+    })
+  }
 
-      <div style={s.creditLine}>
-        <Interactive
-          as="a"
-          href="http://www.rafaelpedicini.com"
-          interactiveChild
-          focus={{}}
-          touchActive={{}}
-          touchActiveTapOnly
-        >
-          Code and concept by <span {...s.childLink}>Rafael Pedicini</span>
-        </Interactive>
-      </div>
-    </div>
-  );
+  onMobileNavToggle = () => {
+    this.setState({
+      isMobileNavFolded: !this.state.isMobileNavFolded,
+      isSideFolded: true,
+    })
+  }
+
+  onRouteChange = () => {
+    this.setState({ isSideFolded: true, isMobileNavFolded: true })
+  }
+
+  render() {
+    const { children } = this.props
+    const { isSideFolded, isMobileNavFolded } = this.state
+
+    return (
+      <Container>
+        <Nav
+          isSideFolded={isSideFolded}
+          isMobileNavFolded={isMobileNavFolded}
+          onSideToggle={this.onSideToggle}
+          onMobileNavToggle={this.onMobileNavToggle}
+          onRouteChange={this.onRouteChange}
+        />
+        <Content moveRight={!isSideFolded}>
+          {children}
+        </Content>
+      </Container>
+    )
+  }
 }
+
+export default App

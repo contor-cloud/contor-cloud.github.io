@@ -1,38 +1,67 @@
 {
-  "name": "spa-github-pages",
-  "version": "5.1.0",
+  "name": "contor-blog",
+  "version": "0.1.0",
   "private": true,
   "description": "Single Page Apps for GitHub Pages",
   "scripts": {
+    "build": "webpack -p",
+    "lint:js": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:css": "stylelint './static/**/*.js' './posts/*.js' './utils/**/*.js' './components/**/*.js'",
     "start": "webpack-dev-server --devtool eval-source-map --history-api-fallback --open",
-    "build": "webpack -p"
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rafrex/spa-github-pages.git"
+    "url": "git+https://github.com/contor-cloud/contor-cloud.github.io.git"
   },
-  "author": "Rafael Pedicini <code@rafrex.com>",
+  "author": "Christian Glombek",
   "license": "MIT",
   "dependencies": {
+    "babel-plugin-polished": "^1.1.0",
+    "babel-plugin-styled-components": "^1.2.1",
+    "babel-runtime": "^6.26.0",
+    "commonmark": "^0.28.1",
+    "commonmark-react-renderer": "^4.3.3",
+    "found": "^0.3.4",
+    "polished": "^1.8.1",
+    "prismjs": "^1.8.3",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-interactive": "^0.8.1",
-    "react-router-dom": "^4.2.2"
+    "react-live": "^1.7.1",
+    "react-octicons-svg": "^1.1.13",
+    "styled-components": "^2.2.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-prettier": "^2.6.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
+    "lint-staged": "^4.3.0",
+    "prettier": "^1.7.4",
+    "stylelint": "^8.2.0",
+    "stylelint-config-standard": "^17.0.0",
+    "stylelint-processor-styled-components": "^1.0.0",
+    "stylint-stylish": "^1.4.0",
     "webpack": "^3.6.0",
+    "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.8.2"
+  },
+  "lint-staged": {
+    "*.js": [
+      "stylelint",
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

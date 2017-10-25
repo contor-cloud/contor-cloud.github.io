@@ -1,4 +1,5 @@
-const webpack = require('webpack');
+// const webpack = require('webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
   entry: `${__dirname}/src/index.js`,
@@ -14,11 +15,14 @@ module.exports = {
     ],
   },
 
-  plugins: process.argv.indexOf('-p') === -1 ? [] : [
-    new webpack.optimize.UglifyJsPlugin({
-      output: {
-        comments: false,
-      },
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled',
     }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   output: {
+    //     comments: false,
+    //   }
+    // })
   ],
-};
+}

@@ -13,7 +13,7 @@ import elementToText from '../utils/elementToText'
 import titleToDash from '../utils/titleToDash'
 
 // Components to be used as renderers
-import Anchor from './Anchor'
+import Link from './Anchor'
 import Code from './Code'
 import CodeBlock from './CodeBlock'
 import Label, { LabelGroup } from './Label'
@@ -118,7 +118,7 @@ const md = (strings, ...values) => {
         const hash = titleToDash(title)
 
         return (
-          <Anchor id={hash} sub={level > 2}>
+          <Link id={hash} sub={level > 2}>
             {title}
             {labels.length > 0 && (
               <LabelGroup>
@@ -131,7 +131,7 @@ const md = (strings, ...values) => {
                 }
               </LabelGroup>
             )}
-          </Anchor>
+          </Link>
         )
       }
     }

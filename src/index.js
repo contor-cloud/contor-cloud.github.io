@@ -7,12 +7,16 @@ import App from './components/App'
 // import Page from './components/Page'
 import MdPage from './components/MdPage'
 
-async function fetchMd(postId) {
+function fetchMd(postId) {
   const url = `https://raw.githubusercontent.com/contor-cloud/contor-cloud.github.io/master/static/${postId}.md`
-  const result = await fetch(url, {mode: 'cors'})
-  const data = await result.text()
 
-  return data
+  return fetch(url, {mode: 'cors'})
+    .then(response => {
+      return response.text()
+    })
+    .catch((error) => {
+      console.error(error)
+    })
 }
 
 const renderFunction = ({ Component, props }) => (

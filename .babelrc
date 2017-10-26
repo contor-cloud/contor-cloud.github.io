@@ -3,8 +3,7 @@
     "babel-plugin-polished",
     ["babel-plugin-styled-components", {
       "displayName": true
-    }],
-    "transform-runtime"
+    }]
   ],
   "presets": ["env", "react", "stage-1"]
 }

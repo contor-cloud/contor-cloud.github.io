@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import rem from '../../utils/rem'
 import { navbarHeight } from '../../utils/sizes'
-//import LinkItem from '../LinkItem'
+import LinkItem from '../LinkItem'
 
 const Wrapper = styled.nav`
   display: flex;
@@ -11,10 +11,9 @@ const Wrapper = styled.nav`
   flex: 1 1 auto;
 `
 
-//const SocialLink = styled(LinkItem).attrs({
-//  unstyled: true,
-//})`
-const SocialLink = styled.a`
+const SocialLink = styled(LinkItem).attrs({
+ external: true,
+})`
   display: inline-block;
   margin-right: ${rem(20)};
   line-height: ${rem(navbarHeight)};

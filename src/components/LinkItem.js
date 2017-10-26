@@ -22,6 +22,16 @@ export const StyledLink = styled(Link)`
   }
 `
 
+export const ExternalInlineLink = styled.a.attrs({
+  target: '_blank',
+  rel: 'noopener'
+})`
+  color: ${p => p['data-white'] ? 'white' : violetRed};
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+`
+
 export const InlineLink = styled(Link).attrs({
   target: '_blank',
   rel: 'noopener'
@@ -32,12 +42,16 @@ export const InlineLink = styled(Link).attrs({
   cursor: pointer;
 `
 
-const LinkItem = ({ children, className, inline, unstyled, white, ...rest }) => {
+const LinkItem = ({ children, className, inline, unstyled, external, white, ...rest }) => {
   let Child = StyledLink
-  if (inline) {
+  if (inline && external) {
+    Child = ExternalInlineLink
+  } else if (inline) {
     Child = InlineLink
   } else if (unstyled) {
     Child = Link
+  } else if (external) {
+    Child = 'a'
   }
 
   let dataAttrs
@@ -45,11 +59,19 @@ const LinkItem = ({ children, className, inline, unstyled, white, ...rest }) => 
     dataAttrs = { 'data-white': white }
   }
 
-  return (
-    <Child to={rest.to || rest.href} className={className} {...dataAttrs}>
-      {children}
-    </Child>
-  )
+  if (external) {
+    return (
+      <Child href={rest.href} className={className} {...dataAttrs}>
+        {children}
+      </Child>
+    )
+  } else {
+    return (
+      <Child to={rest.to} className={className} {...dataAttrs}>
+        {children}
+      </Child>
+    )
+  }
 }
 
 export default LinkItem

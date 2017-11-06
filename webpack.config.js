@@ -1,4 +1,4 @@
-// const webpack = require('webpack')
+const webpack = require('webpack')
 
 module.exports = {
   entry: `${__dirname}/src/index.js`,
@@ -11,10 +11,15 @@ module.exports = {
   module: {
     rules: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.css$/, use: [ 'style-loader', 'css-loader' ]},
+      { test: /\.yml$/, use: [ 'json-loader', 'yaml-frontmatter-loader' ]},
     ],
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      Glamor: 'glamor/react'
+    })
     // new webpack.optimize.UglifyJsPlugin({
     //   output: {
     //     comments: false,

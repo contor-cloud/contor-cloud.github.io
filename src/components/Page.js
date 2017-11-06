@@ -1,19 +1,14 @@
-import React from 'react'
-import { Parser } from 'commonmark'
-import Renderer from 'commonmark-react-renderer'
+import md from './Markdown/mdRenderer'
 
-const Page = (props) => {
- const { content } = props
- const parser = new Parser()
- const ast = parser.parse(content)
- console.log('ast: ' + ast)
- const renderer = new Renderer()
-
- return (
-   <div>
-     {renderer.render(ast)}
-   </div>
- )
+// TODO:  Turn into CSS Grid
+const Page = ({
+  content,
+}) => {
+  return (
+    <div>
+      {md(content)}
+    </div>
+  )
 }
 
 export default Page

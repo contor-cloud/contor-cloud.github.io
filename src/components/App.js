@@ -1,55 +1,52 @@
-import React, { Component } from 'react'
-import { Container, Content } from './Layout'
-import Nav from './PrimaryNav'
+import React from 'react'
 
-class App extends Component {
-  state = {
-    isSideFolded: true,
-    isMobileNavFolded: true
-  }
+import Header from './Header'
+import Footer from './Footer'
 
-  static defaultProps = {
-    title: '',
-    description: '',
-  }
+// Import global styles
+import 'glamor/reset'
+import '../css/reset.css'
 
-  onSideToggle = () => {
-    this.setState({
-      isSideFolded: !this.state.isSideFolded,
-      isMobileNavFolded: true,
-    })
-  }
+// Turn into CSS Grid
+// const AppFrame = ({children, hasSidebar = false}) => {
+//   return (
+//     <div>
+//       <Header />
+//       <Flex
+//         direction="column"
+//         shrink="0"
+//         grow="1"
+//         valign="stretch"
+//         css={{
+//           flex: '1 0 auto',
+//           position: 'relative',
+//           marginTop: 42,
+//         }}
+//       >
+//         {children}
+//       </Flex>
+//       <Footer hasSidebar={hasSidebar} />
+//     </div>
+//   )
+// }
+//
+// export default AppFrame
 
-  onMobileNavToggle = () => {
-    this.setState({
-      isMobileNavFolded: !this.state.isMobileNavFolded,
-      isSideFolded: true,
-    })
-  }
-
-  onRouteChange = () => {
-    this.setState({ isSideFolded: true, isMobileNavFolded: true })
-  }
-
-  render() {
-    const { children } = this.props
-    const { isSideFolded, isMobileNavFolded } = this.state
-
-    return (
-      <Container>
-        <Nav
-          isSideFolded={isSideFolded}
-          isMobileNavFolded={isMobileNavFolded}
-          onSideToggle={this.onSideToggle}
-          onMobileNavToggle={this.onMobileNavToggle}
-          onRouteChange={this.onRouteChange}
-        />
-        <Content moveRight={!isSideFolded}>
-          {children}
-        </Content>
-      </Container>
-    )
-  }
+const App = ({children}) => {
+  return (
+    <div
+      css={{
+        display: 'grid',
+        gridTemplateAreas: `
+          "header"
+          "content"
+        `
+    }}>
+      <Header css={{ gridArea: 'header' }}/>
+      {children}
+      <Footer/>
+    </div>
+  )
 }
 
 export default App

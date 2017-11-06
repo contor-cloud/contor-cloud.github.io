@@ -4,8 +4,8 @@ import { createBrowserRouter, HttpError, makeRouteConfig, Redirect, Route }
   from 'found'
 
 import App from './components/App'
-// import Page from './components/Page'
-import MdPage from './components/MdPage'
+import Page from './components/Page'
+import BlogPage from './components/BlogPage'
 
 function fetchMd(postId) {
   const url = `https://raw.githubusercontent.com/contor-cloud/contor-cloud.github.io/master/static/${postId}.md`
@@ -34,7 +34,19 @@ const BrowserRouter = createBrowserRouter({
       Component={App}
     >
       <Route
-        Component={({data}) => <MdPage content={data}/>}
+        Component={({data}) => (
+          <Page content={data}/>
+        )}
+        getData={() => (
+          fetchMd('LandingPage').catch(() => { throw new HttpError(404) })
+        )}
+        render={({ Component, props }) => renderFunction({ Component, props })}
+      />
+      <Route
+        path="blog"
+        Component={({data}) => (
+          <BlogPage content={data}/>
+        )}
         getData={() => (
           fetchMd('LandingPage').catch(() => { throw new HttpError(404) })
         )}
@@ -42,15 +54,15 @@ const BrowserRouter = createBrowserRouter({
       />
       <Route
         path="blog/:postId"
-        Component={({data}) => <MdPage content={data}/>}
+        Component={({data}) => <BlogPage content={data}/>}
         getData={({ params: { postId } }) => (
           fetchMd(postId).catch(() => { throw new HttpError(404) })
         )}
         render={({ Component, props }) => renderFunction({ Component, props })}
       />
       <Redirect
-        from="blog"
-        to="/"
+        from="posts/:postId"
+        to="blog/:postId"
       />
     </Route>
   ),

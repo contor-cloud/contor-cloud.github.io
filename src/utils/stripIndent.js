@@ -7,7 +7,6 @@ const stripIndent = str => {
     return str
   }
 
-  // TODO: Use spread operator when targeting Node.js 6
   const indent = Math.min(...match.map(x => x.length))
   const re = new RegExp(`^[ \\t]{${indent}}`, 'gm')
 

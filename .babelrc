@@ -3,6 +3,10 @@
     "babel-plugin-polished",
     ["babel-plugin-styled-components", {
       "displayName": true
+    }],
+    [
+    "transform-react-jsx", {
+      "pragma": "Glamor.createElement"
     }]
   ],
   "presets": ["env", "react", "stage-1"]
